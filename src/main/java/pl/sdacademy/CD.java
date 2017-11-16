@@ -46,4 +46,17 @@ public class CD {
     public void deleteTrack(int trackNumber) {
         tracks.remove(trackNumber);
     }
+
+    public int length(){
+        int sum = 0;
+        for (Track track : tracks) {
+            sum += track.getLength();
+        }
+        return sum;
+        //tracks.stream().mapToInt(track -> track.getLength()).sum();
+    }
+
+    public int trackCount() {
+        return tracks.size();
+    }
 }
