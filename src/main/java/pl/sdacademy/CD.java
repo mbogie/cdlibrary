@@ -47,7 +47,7 @@ public class CD {
         tracks.remove(trackNumber);
     }
 
-    public int length(){
+    public int getLength(){
         int sum = 0;
         for (Track track : tracks) {
             sum += track.getLength();
@@ -56,7 +56,7 @@ public class CD {
         //tracks.stream().mapToInt(track -> track.getLength()).sum();
     }
 
-    public int trackCount() {
+    public int getTrackCount() {
         return tracks.size();
     }
 }
