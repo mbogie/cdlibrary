@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * http://dominisz.pl
@@ -58,5 +59,11 @@ public class CD {
 
     public int getTrackCount() {
         return tracks.size();
+    }
+
+    public List<Track> searchTracksByTitle(String title) {
+        return tracks.stream()
+                .filter(track -> track.getTitle().contains(title))
+                .collect(Collectors.toList());
     }
 }
