@@ -1,6 +1,9 @@
 package pl.sdacademy;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -14,6 +17,7 @@ import java.util.stream.Collectors;
  * 16.11.2017
  */
 @Data
+@NoArgsConstructor
 public class CD {
 
     private String band;

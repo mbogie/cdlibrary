@@ -1,5 +1,7 @@
 package pl.sdacademy;
 
+import lombok.Data;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
@@ -10,6 +12,7 @@ import java.util.stream.Stream;
  * http://dominisz.pl
  * 16.11.2017
  */
+@Data
 public class Library {
 
     private List<CD> CDs;
