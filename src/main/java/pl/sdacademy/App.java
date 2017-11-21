@@ -1,5 +1,6 @@
 package pl.sdacademy;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class App {
@@ -16,7 +17,7 @@ public class App {
         int input;
         do {
             showMainMenu();
-            input = readInput(1, 6);
+            input = readInt(1, 6);
             switch (input) {
                 case 1:
                     showAllCDs();
@@ -38,7 +39,39 @@ public class App {
     }
 
     private void addCD() {
+        CD cd = new CD();
+        readMainInfo(cd);
+        readGenres(cd);
+        readTracks(cd);
+        library.addCD(cd);
+    }
 
+    private void readTracks(CD cd) {
+
+    }
+
+    private void readGenres(CD cd) {
+
+    }
+
+    private void readMainInfo(CD cd) {
+        System.out.println("Podaj wykonawce: ");
+        String band = readLine();
+        System.out.println("Podaj tytul: ");
+        String title = readLine();
+        System.out.println("Podaj wytwornie: ");
+        String publisher = readLine();
+        LocalDate releaseDate = readDate();
+        cd.setBand(band);
+        cd.setTitle(title);
+        cd.setPublisher(publisher);
+        cd.setReleaseDate(releaseDate);
+    }
+
+    private LocalDate readDate() {
+        System.out.println("Podaj rok: ");
+        int year = readInt(1950, 2050);
+        return LocalDate.of(year, 1, 1);
     }
 
     private void showCDsByTrackTitle() {
@@ -63,7 +96,15 @@ public class App {
         }
     }
 
-    private int readInput(int min, int max) {
+    private String readLine() {
+        String line;
+        do {
+            line = scanner.nextLine();
+        } while (line.trim().length() == 0);
+        return line;
+    }
+
+    private int readInt(int min, int max) {
         boolean success;
         int choice = 0;
         System.out.print("Wpisz liczbe od " + min + " do " + max + ": ");
