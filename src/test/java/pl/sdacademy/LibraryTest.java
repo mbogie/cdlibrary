@@ -91,6 +91,50 @@ class LibraryTest {
         assertTrue(result.isEmpty());
     }
 
+    //public List<CD> searchByTrackTitle(String title)
+    @Test
+    void shouldFindNoTracksInEmptyLibrary() {
+        Library library = new Library();
+        List<CD> result = library.searchByTrackTitle("title");
+        assertTrue(result.isEmpty());
+    }
+
+    private Library createLibraryWithTwoCDs() {
+        List<CD> cdList = new ArrayList<>();
+        cdList.add(createCDWithTrackTitle("title 1"));
+        cdList.add(createCDWithTrackTitle("title 2"));
+        Library library = new Library();
+        library.setCDs(cdList);
+        return library;
+    }
+
+    @Test
+    void shouldFindNoTracks() {
+        Library library = createLibraryWithTwoCDs();
+        List<CD> result = library.searchByTrackTitle("another");
+        assertTrue(result.isEmpty());
+    }
+
+    @Test
+    void shouldFindTwoTracks() {
+        Library library = createLibraryWithTwoCDs();
+        List<CD> result = library.searchByTrackTitle("tle");
+        assertTrue(result.size() == 2);
+        assertTrue(!result.get(0).searchTracksByTitle("tle").isEmpty());
+        assertTrue(!result.get(1).searchTracksByTitle("tle").isEmpty());
+    }
+
+    private CD createCDWithTrackTitle(String title) {
+        CD cd = new CD();
+        Track track = new TrackBuilder()
+                .setTitle(title)
+                .build();
+        List<Track> tracks = new ArrayList<>();
+        tracks.add(track);
+        cd.setTracks(tracks);
+        return cd;
+    }
+
     private CD createCDWithTitle(String title) {
         CD cd = new CD();
         cd.setTitle(title);
