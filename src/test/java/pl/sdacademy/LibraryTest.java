@@ -53,7 +53,52 @@ class LibraryTest {
         assertTrue(result.get(1).getGenres().contains(Genre.ROCK));
     }
 
-    private CD createCDWithGenres(Genre ... genres) {
+    //public List<CD> searchByCDTitle(String title)
+
+    //wyszukanie w pustej bibliotece nie powinno nic znaleźć
+    @Test
+    void shouldFindNoCDsInEmptyLibrary() {
+        Library library = new Library();
+        List<CD> result = library.searchByCDTitle("title");
+        assertTrue(result.isEmpty());
+    }
+
+    //w bibliotece mamy dwie płyty o tym samym tytule, powinny zostać znalezione
+    @Test
+    void shouldFindTwoCDsWithGivenTitle() {
+        Library library = new Library();
+        List<CD> cdList = new ArrayList<>();
+        cdList.add(createCDWithTitle("title 1"));
+        cdList.add(createCDWithTitle("title 2"));
+        cdList.add(createCDWithTitle("compilation 3"));
+        library.setCDs(cdList);
+        List<CD> result = library.searchByCDTitle("title");
+        assertTrue(result.size() == 2);
+        assertTrue(result.get(0).getTitle().contains("title"));
+        assertTrue(result.get(1).getTitle().contains("title"));
+    }
+
+    //w bibliotece nie mamy płyt o szukanym tytule
+    @Test
+    void shouldFindNoCDs() {
+        Library library = new Library();
+        List<CD> cdList = new ArrayList<>();
+        cdList.add(createCDWithTitle("title 1"));
+        cdList.add(createCDWithTitle("title 2"));
+        cdList.add(createCDWithTitle("title 3"));
+        library.setCDs(cdList);
+        List<CD> result = library.searchByCDTitle("new");
+        assertTrue(result.isEmpty());
+    }
+
+    private CD createCDWithTitle(String title) {
+        CD cd = new CD();
+        cd.setTitle(title);
+        return cd;
+    }
+
+
+    private CD createCDWithGenres(Genre... genres) {
         CD cd = new CD();
         Set<Genre> setOfGenres = new HashSet<>();
         for (Genre genre : genres) {
