@@ -5,16 +5,62 @@ import java.util.Scanner;
 public class App {
 
     private Scanner scanner;
+    private Library library;
 
     public App() {
         scanner = new Scanner(System.in);
+        library = new Library();
     }
 
     public void processMainMenu() {
-        showMainMenu();
-        int input = readInput(1, 6);
+        int input;
+        do {
+            showMainMenu();
+            input = readInput(1, 6);
+            switch (input) {
+                case 1:
+                    showAllCDs();
+                    break;
+                case 2:
+                    showCDsByGenre();
+                    break;
+                case 3:
+                    showCDsByTitle();
+                    break;
+                case 4:
+                    showCDsByTrackTitle();
+                    break;
+                case 5:
+                    addCD();
+                    break;
+            }
+        } while (input != 6);
+    }
 
+    private void addCD() {
 
+    }
+
+    private void showCDsByTrackTitle() {
+
+    }
+
+    private void showCDsByTitle() {
+
+    }
+
+    private void showCDsByGenre() {
+
+    }
+
+    private void showAllCDs() {
+        if (library.getCDs().isEmpty()) {
+            System.out.println("Biblioteka nie zawiera zadnych plyt");
+            return;
+        }
+        for (CD cd : library.getCDs()) {
+            System.out.println(cd.toString());
+        }
     }
 
     private int readInput(int min, int max) {
