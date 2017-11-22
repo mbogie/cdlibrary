@@ -41,24 +41,45 @@ public class App {
 
     private void addCD() {
         CD cd = new CD();
-        readMainInfo(cd);
-        readGenres(cd);
-        readTracks(cd);
+        addMainInfoToCD(cd);
+        addGenresToCD(cd);
+        addTracksToCD(cd);
         library.addCD(cd);
     }
 
-    private void readTracks(CD cd) {
-
+    private void addTracksToCD(CD cd) {
+        int input;
+        do {
+            System.out.println("1. Dodaj utwor");
+            System.out.println("2. Wyjscie do glownego menu");
+            input = readInt(1, 2);
+            if (input == 1) {
+                addOneTrackToCD(cd);
+            }
+        } while (input < 2);
     }
 
-    private void readGenres(CD cd) {
+    private void addOneTrackToCD(CD cd) {
+        System.out.println("Podaj tytul utworu: ");
+        String title = readLine();
+        System.out.println("Podaj autora: ");
+        String author = readLine();
+        System.out.println("Podaj dlugosc utworu: ");
+        int length = readInt(1, 4800);
+        System.out.println("Podaj notatki: ");
+        String notes = scanner.nextLine().trim();
+        Track track = new Track(author, length, title, notes);
+        cd.addTrack(track);
+    }
+
+    private void addGenresToCD(CD cd) {
         Genre[] genres = Genre.values();
         for (int i = 0; i < genres.length; i++) {
             System.out.println((i + 1) + ". " + genres[i].toString());
         }
         int exit = genres.length + 1;
         int selected;
-        System.out.println(exit + ". Wyjscie");
+        System.out.println(exit + ". Wyjscie do glownego menu");
         do {
             selected = readInt(1, exit);
             if (selected < exit) {
@@ -67,7 +88,7 @@ public class App {
         } while (selected < exit);
     }
 
-    private void readMainInfo(CD cd) {
+    private void addMainInfoToCD(CD cd) {
         System.out.println("Podaj wykonawce: ");
         String band = readLine();
         System.out.println("Podaj tytul: ");
@@ -138,7 +159,7 @@ public class App {
         System.out.println("3. Wyswietl liste plyt po tytule");
         System.out.println("4. Wyswietl liste plyt po tytule utworu");
         System.out.println("5. Dodaj plyte");
-        System.out.println("6. Wyjdz z programu");
+        System.out.println("6. Wyjscie z programu");
     }
 
     public static void main(String[] args) {
