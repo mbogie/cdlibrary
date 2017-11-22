@@ -11,6 +11,7 @@ public class App {
     public App() {
         scanner = new Scanner(System.in);
         library = new Library();
+
     }
 
     public void processMainMenu() {
@@ -51,7 +52,19 @@ public class App {
     }
 
     private void readGenres(CD cd) {
-
+        Genre[] genres = Genre.values();
+        for (int i = 0; i < genres.length; i++) {
+            System.out.println((i + 1) + ". " + genres[i].toString());
+        }
+        int exit = genres.length + 1;
+        int selected;
+        System.out.println(exit + ". Wyjscie");
+        do {
+            selected = readInt(1, exit);
+            if (selected < exit) {
+                cd.addGenre(genres[selected - 1]);
+            }
+        } while (selected < exit);
     }
 
     private void readMainInfo(CD cd) {

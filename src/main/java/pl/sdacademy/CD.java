@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
  * 16.11.2017
  */
 @Data
-@NoArgsConstructor
 public class CD {
 
     private String band;
@@ -32,6 +31,11 @@ public class CD {
         this.title = title;
         this.publisher = publisher;
         this.releaseDate = releaseDate;
+        this.genres = new HashSet<>();
+        this.tracks = new ArrayList<>();
+    }
+
+    public CD() {
         this.genres = new HashSet<>();
         this.tracks = new ArrayList<>();
     }
@@ -52,7 +56,7 @@ public class CD {
         tracks.remove(trackNumber);
     }
 
-    public int getLength(){
+    public int getLength() {
         int sum = 0;
         for (Track track : tracks) {
             sum += track.getLength();
@@ -69,5 +73,28 @@ public class CD {
         return tracks.stream()
                 .filter(track -> track.getTitle().contains(title))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public String toString() {
+        return band + ", "
+                + title + ", "
+                + releaseDate + ", "
+                + lengthToString() + ", "
+                + genresToString();
+    }
+
+    //ma zwracać gatunki w postaci pełnych nazw, np. African heavy metal, Experimental music
+    private String genresToString() {
+        return genres.stream()
+                .map(genre -> genre.toString())
+                .collect(Collectors.joining(", "));
+    }
+
+    //ma zwracać czas w postaci mm:ss
+    private String lengthToString() {
+        int minutes = getLength() / 60;
+        int seconds = getLength() % 60;
+        return String.format("%d:%02d", minutes, seconds);
     }
 }
