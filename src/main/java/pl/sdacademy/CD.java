@@ -13,17 +13,37 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * http://dominisz.pl
- * 16.11.2017
+ * Klasa CD przechowuje informacje o jednej płycie, m.in. nazwę wykonawcy, tytuł, utwory, gatunki...
+ *
+ * @author http://dominisz.pl
+ * @version 16.11.2017
  */
 @Data
 public class CD {
 
+    /**
+     * Nazwa wykonawcy
+     */
     private String band;
+    /**
+     * Tytuł płyty
+     */
     private String title;
+    /**
+     * Wydawca płyty
+     */
     private String publisher;
+    /**
+     * Data wydania płyty
+     */
     private LocalDate releaseDate;
+    /**
+     * Gatunki muzyczne
+     */
     private Set<Genre> genres;
+    /**
+     * Lista utworów
+     */
     private List<Track> tracks;
 
     public CD(String band, String title, String publisher, LocalDate releaseDate) {
@@ -35,15 +55,29 @@ public class CD {
         this.tracks = new ArrayList<>();
     }
 
+    /**
+     * Konstruktor tworzy nowy obiekt CD z pustą listą genres oraz pustą listą tracks
+     */
     public CD() {
         this.genres = new HashSet<>();
         this.tracks = new ArrayList<>();
     }
 
+    /**
+     * Metoda dodaje do płyty gatunek
+     *
+     * @param genre gatunek dodawany do płyty
+     */
     public void addGenre(Genre genre) {
         genres.add(genre);
     }
 
+    /**
+     * Usuwa podany gatunek z płyty
+     * @see Genre
+     *
+     * @param genre gatunek do usunięcia
+     */
     public void deleteGenre(Genre genre) {
         genres.remove(genre);
     }
