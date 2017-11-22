@@ -1,8 +1,6 @@
 package pl.sdacademy;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
@@ -177,6 +175,21 @@ public class App {
     }
 
     private void loadLibraryFromFile() {
+        try {
+            FileReader fileReader = new FileReader(FILENAME);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            String line = bufferedReader.readLine();
+            int numberOfCDs = Integer.parseInt(line);
+            for (int i = 0; i < numberOfCDs; i++) {
+                readCDFromFile(bufferedReader);
+            }
+            bufferedReader.close();
+        } catch (IOException exception) {
+            System.out.println("Nie udalo sie odczytac pliku " + FILENAME);
+        }
+    }
+
+    private void readCDFromFile(BufferedReader bufferedReader) {
 
     }
 
