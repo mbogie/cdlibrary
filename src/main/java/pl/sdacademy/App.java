@@ -1,9 +1,16 @@
 package pl.sdacademy;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 public class App {
+
+    private static final String FILENAME = "library.txt";
 
     private Scanner scanner;
     private Library library;
@@ -164,6 +171,52 @@ public class App {
 
     public static void main(String[] args) {
         App app = new App();
+        app.loadLibraryFromFile();
         app.processMainMenu();
+        app.saveLibraryToFile();
+    }
+
+    private void loadLibraryFromFile() {
+
+    }
+
+    private void saveLibraryToFile() {
+        try {
+            File file = new File(FILENAME);
+            PrintWriter printWriter = new PrintWriter(file);
+            printWriter.println(library.getCDs().size());
+            for (CD cd : library.getCDs()) {
+                saveCDToFile(printWriter, cd);
+            }
+            printWriter.close();
+        } catch (FileNotFoundException exception) {
+            System.out.println("Nie udalo sie zapisac pliku " + FILENAME);
+        }
+    }
+
+    private void saveCDToFile(PrintWriter printWriter, CD cd) {
+        printWriter.println(cd.getBand());
+        printWriter.println(cd.getTitle());
+        printWriter.println(cd.getPublisher());
+        printWriter.println(cd.getReleaseDate());
+        saveGenresToFile(printWriter, cd.getGenres());
+        saveTracksToFile(printWriter, cd.getTracks());
+    }
+
+    private void saveTracksToFile(PrintWriter printWriter, List<Track> tracks) {
+        printWriter.println(tracks.size());
+        for (Track track : tracks) {
+            printWriter.println(track.getAuthor());
+            printWriter.println(track.getLength());
+            printWriter.println(track.getTitle());
+            printWriter.println(track.getNotes());
+        }
+    }
+
+    private void saveGenresToFile(PrintWriter printWriter, Set<Genre> genres) {
+        printWriter.println(genres.size());
+        for (Genre genre : genres) {
+            printWriter.println(genre.name());
+        }
     }
 }

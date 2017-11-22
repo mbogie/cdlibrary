@@ -1,0 +1,17 @@
+1
+wykonawca
+tytul
+wytwornia
+2000-01-01
+2
+POP
+ROCK
+2
+autor 1
+230
+tytul utworu 1
+fajne :-)
+autor 1
+123
+utwor 2
+słabe :-(
