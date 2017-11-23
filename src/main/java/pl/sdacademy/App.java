@@ -189,8 +189,36 @@ public class App {
         }
     }
 
-    private void readCDFromFile(BufferedReader bufferedReader) {
+    private void readCDFromFile(BufferedReader bufferedReader) throws IOException {
+        String band = bufferedReader.readLine();
+        String title = bufferedReader.readLine();
+        String publisher = bufferedReader.readLine();
+        String releaseDate = bufferedReader.readLine();
+        CD cd = new CD(band, title, publisher, LocalDate.parse(releaseDate));
+        readGenresFromFile(bufferedReader, cd);
+        readTracksFromFile(bufferedReader, cd);
+        library.addCD(cd);
+    }
 
+    private void readTracksFromFile(BufferedReader bufferedReader, CD cd) throws IOException {
+        String line = bufferedReader.readLine();
+        int numberOfTracks = Integer.parseInt(line);
+        for (int i = 0; i < numberOfTracks; i++) {
+            String author = bufferedReader.readLine();
+            int length = Integer.parseInt(bufferedReader.readLine());
+            String title = bufferedReader.readLine();
+            String notes = bufferedReader.readLine();
+            cd.addTrack(new Track(author, length, title, notes));
+        }
+    }
+
+    private void readGenresFromFile(BufferedReader bufferedReader, CD cd) throws IOException {
+        String line = bufferedReader.readLine();
+        int numberOfGenres = Integer.parseInt(line);
+        for (int i = 0; i < numberOfGenres; i++) {
+            line = bufferedReader.readLine();
+            cd.addGenre(Genre.valueOf(line));
+        }
     }
 
     private void saveLibraryToFile() {
