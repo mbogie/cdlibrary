@@ -130,8 +130,8 @@ public class App {
             System.out.println("Biblioteka nie zawiera zadnych plyt");
             return;
         }
-        for (CD cd : library.getCDs()) {
-            System.out.println(cd.toString());
+        for (int i = 0; i < library.getCDs().size(); i++) {
+            System.out.println((i + 1) + ". " + library.getCDs().get(i));
         }
     }
 
@@ -159,6 +159,7 @@ public class App {
     }
 
     private void showMainMenu() {
+        System.out.println("============== MENU =============");
         System.out.println("1. Wyswietl liste wszystkich plyt");
         System.out.println("2. Wyswietl liste plyt po gatunku");
         System.out.println("3. Wyswietl liste plyt po tytule");

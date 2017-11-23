@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static pl.sdacademy.TimeUtils.formattedLength;
+
 /**
  * Klasa CD przechowuje informacje o jednej płycie, m.in. nazwę wykonawcy, tytuł, utwory, gatunki...
  *
@@ -74,9 +76,9 @@ public class CD {
 
     /**
      * Usuwa podany gatunek z płyty
-     * @see Genre
      *
      * @param genre gatunek do usunięcia
+     * @see Genre
      */
     public void deleteGenre(Genre genre) {
         genres.remove(genre);
@@ -114,8 +116,23 @@ public class CD {
         return band + ", "
                 + title + ", "
                 + releaseDate + ", "
-                + lengthToString() + ", "
-                + genresToString();
+                + formattedLength(getLength()) + ", "
+                + genresToString() + "\n"
+                + tracksToString();
+    }
+
+    private String tracksToString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < tracks.size(); i++) {
+            stringBuilder.append("\t")
+                    .append(i + 1)
+                    .append(". ")
+                    .append(tracks.get(i));
+            if (i < tracks.size() - 1) {
+                stringBuilder.append("\n");
+            }
+        }
+        return stringBuilder.toString();
     }
 
     //ma zwracać gatunki w postaci pełnych nazw, np. African heavy metal, Experimental music
@@ -125,10 +142,4 @@ public class CD {
                 .collect(Collectors.joining(", "));
     }
 
-    //ma zwracać czas w postaci mm:ss
-    private String lengthToString() {
-        int minutes = getLength() / 60;
-        int seconds = getLength() % 60;
-        return String.format("%d:%02d", minutes, seconds);
-    }
 }
