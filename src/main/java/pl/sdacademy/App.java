@@ -118,7 +118,11 @@ public class App {
     }
 
     private void showCDsByTitle() {
-
+        System.out.println("Podaj tytul do wyszukania: ");
+        String title = readLine();
+        List<CD> result = library.searchByCDTitle(title);
+        System.out.println("Znalezione plyty");
+        showCdsFromList(result);
     }
 
     private void showCDsByGenre() {
@@ -126,12 +130,17 @@ public class App {
     }
 
     private void showAllCDs() {
-        if (library.getCDs().isEmpty()) {
-            System.out.println("Biblioteka nie zawiera zadnych plyt");
+        System.out.println("Plyty z biblioteki");
+        showCdsFromList(library.getCDs());
+    }
+
+    private void showCdsFromList(List<CD> CDs) {
+        if (CDs.isEmpty()) {
+            System.out.println("Brak plyt");
             return;
         }
-        for (int i = 0; i < library.getCDs().size(); i++) {
-            System.out.println((i + 1) + ". " + library.getCDs().get(i));
+        for (int i = 0; i < CDs.size(); i++) {
+            System.out.println((i + 1) + ". " + CDs.get(i));
         }
     }
 
