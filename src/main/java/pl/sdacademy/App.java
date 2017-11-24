@@ -180,6 +180,9 @@ public class App {
         System.out.println("6. Wyjscie z programu");
     }
 
+    //TODO czy udałoby się zaprojektować jakieś klasy do tworzenia menu (lista opcji + akcje do wykonania)? może jakiś wzorzec projektowy?
+    //https://www.google.pl/search?q=design+pattern+for+text+menus
+
     //TODO zapisać Genre do pliku tekstowego
     public static void main(String[] args) {
         App app = new App();
