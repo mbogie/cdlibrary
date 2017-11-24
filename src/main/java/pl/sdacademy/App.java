@@ -113,6 +113,7 @@ public class App {
         return LocalDate.of(year, 1, 1);
     }
 
+    //TODO zaimplementować
     private void showCDsByTrackTitle() {
 
     }
@@ -125,6 +126,7 @@ public class App {
         showCdsFromList(result);
     }
 
+    //TODO zaimplementować
     private void showCDsByGenre() {
 
     }
@@ -167,6 +169,7 @@ public class App {
         return choice;
     }
 
+    //TODO dodać opcje do dodawania nowego Genre
     private void showMainMenu() {
         System.out.println("============== MENU =============");
         System.out.println("1. Wyswietl liste wszystkich plyt");
@@ -177,6 +180,7 @@ public class App {
         System.out.println("6. Wyjscie z programu");
     }
 
+    //TODO zapisać Genre do pliku tekstowego
     public static void main(String[] args) {
         App app = new App();
         app.loadLibraryFromFile();
@@ -184,6 +188,7 @@ public class App {
         app.saveLibraryToFile();
     }
 
+    //TODO odczytywać z formatu JSON
     private void loadLibraryFromFile() {
         try {
             FileReader fileReader = new FileReader(FILENAME);
@@ -191,7 +196,7 @@ public class App {
             String line = bufferedReader.readLine();
             int numberOfCDs = Integer.parseInt(line);
             for (int i = 0; i < numberOfCDs; i++) {
-                readCDFromFile(bufferedReader);
+                loadCDFromFile(bufferedReader);
             }
             bufferedReader.close();
         } catch (IOException exception) {
@@ -199,18 +204,18 @@ public class App {
         }
     }
 
-    private void readCDFromFile(BufferedReader bufferedReader) throws IOException {
+    private void loadCDFromFile(BufferedReader bufferedReader) throws IOException {
         String band = bufferedReader.readLine();
         String title = bufferedReader.readLine();
         String publisher = bufferedReader.readLine();
         String releaseDate = bufferedReader.readLine();
         CD cd = new CD(band, title, publisher, LocalDate.parse(releaseDate));
-        readGenresFromFile(bufferedReader, cd);
-        readTracksFromFile(bufferedReader, cd);
+        loadGenresFromFile(bufferedReader, cd);
+        loadTracksFromFile(bufferedReader, cd);
         library.addCD(cd);
     }
 
-    private void readTracksFromFile(BufferedReader bufferedReader, CD cd) throws IOException {
+    private void loadTracksFromFile(BufferedReader bufferedReader, CD cd) throws IOException {
         String line = bufferedReader.readLine();
         int numberOfTracks = Integer.parseInt(line);
         for (int i = 0; i < numberOfTracks; i++) {
@@ -222,7 +227,7 @@ public class App {
         }
     }
 
-    private void readGenresFromFile(BufferedReader bufferedReader, CD cd) throws IOException {
+    private void loadGenresFromFile(BufferedReader bufferedReader, CD cd) throws IOException {
         String line = bufferedReader.readLine();
         int numberOfGenres = Integer.parseInt(line);
         for (int i = 0; i < numberOfGenres; i++) {
@@ -231,6 +236,8 @@ public class App {
         }
     }
 
+    //TODO nie zapisywać do pliku na zakończenie aplikacji, jeżeli nie było zmian w danych
+    //TODO w plikach tekstowych zapisywać w formacie JSON, wykorzystać np. Google Gson
     private void saveLibraryToFile() {
         try {
             File file = new File(FILENAME);

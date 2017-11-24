@@ -1,9 +1,6 @@
 package pl.sdacademy;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -138,7 +135,7 @@ public class CD {
     //ma zwracać gatunki w postaci pełnych nazw, np. African heavy metal, Experimental music
     private String genresToString() {
         return genres.stream()
-                .map(genre -> genre.toString())
+                .map(Genre::toString)
                 .collect(Collectors.joining(", "));
     }
 

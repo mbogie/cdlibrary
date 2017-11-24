@@ -29,7 +29,6 @@ class CDTest {
     private int LENGTH2 = 45;
     private String NOTES = "notes";
     private String NOTES2 = "notes2";
-    private Track TRACK = new Track(AUTHOR, LENGTH, TITLE, NOTES);
 
     private CD cd;
 
@@ -56,7 +55,7 @@ class CDTest {
     @Test
     void addTrack() {
         assertTrue(cd.getTracks().isEmpty());
-        Track track = createTrack();
+        Track track = new Track(AUTHOR, LENGTH, TITLE, NOTES);
         cd.addTrack(track);
         assertTrue(cd.getTracks().size() == 1);
         assertEquals(cd.getTracks().get(0).getAuthor(), track.getAuthor());
@@ -68,15 +67,9 @@ class CDTest {
     private List<Track> createTrackList(int numberOfTracks) {
         List<Track> trackList = new ArrayList<>();
         for (int i = 0; i < numberOfTracks; i++) {
-            trackList.add(createTrack());
+            trackList.add(new Track(AUTHOR, LENGTH, TITLE, NOTES));
         }
         return trackList;
-    }
-
-    private Track createTrack() {
-        Track track = new Track(AUTHOR, LENGTH, TITLE, NOTES);
-
-        return track;
     }
 
     @Test

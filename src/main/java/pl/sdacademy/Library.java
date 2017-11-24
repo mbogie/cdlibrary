@@ -41,6 +41,7 @@ public class Library {
         CDs.add(cd);
     }
 
+    //TODO zaimplementować oraz dodać testy jednostkowe
     public void deleteCD(int index) {
         CDs.remove(index);
     }
