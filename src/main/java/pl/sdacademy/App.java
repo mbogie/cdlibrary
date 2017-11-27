@@ -3,6 +3,7 @@ package pl.sdacademy;
 import java.io.*;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -78,6 +79,16 @@ public class App {
     }
 
     private void addGenresToCD(CD cd) {
+        Optional<Genre> genre = readGenre();
+        genre.ifPresent(g -> cd.addGenre(g));
+        /*
+        if (genre.isPresent()) {
+            cd.addGenre(genre.get());
+        }
+        */
+    }
+
+    private Optional<Genre> readGenre() {
         Genre[] genres = Genre.values();
         for (int i = 0; i < genres.length; i++) {
             System.out.println((i + 1) + ". " + genres[i].toString());
@@ -88,9 +99,10 @@ public class App {
         do {
             selected = readInt(1, exit);
             if (selected < exit) {
-                cd.addGenre(genres[selected - 1]);
+                return Optional.of(genres[selected - 1]);
             }
         } while (selected < exit);
+        return Optional.empty();
     }
 
     private void addMainInfoToCD(CD cd) {
@@ -126,9 +138,13 @@ public class App {
         showCdsFromList(result);
     }
 
-    //TODO zaimplementować
     private void showCDsByGenre() {
-
+        Optional<Genre> genre = readGenre();
+        if (genre.isPresent()) {
+            List<CD> result = library.searchByGenre(genre.get());
+            System.out.println("Znalezione plyty");
+            showCdsFromList(result);
+        }
     }
 
     private void showAllCDs() {
